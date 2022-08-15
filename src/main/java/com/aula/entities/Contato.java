@@ -1,10 +1,14 @@
 package com.aula.entities;
 
+import java.time.Instant;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
 @Entity
 public class Contato {
@@ -17,6 +21,10 @@ public class Contato {
 	private String email;
 	@Column(length = 14)
 	private String fone;
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant createdAt;
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant updateAt;
 
 	public Contato() {
 	}
@@ -58,5 +66,24 @@ public class Contato {
 	public void setFone(String fone) {
 		this.fone = fone;
 	}
+	
+	public Instant getCreatedAt() {
+		return createdAt;
+	}
+
+	@PrePersist
+	public void setCreatedAt() {
+		this.createdAt = Instant.now();
+	}
+
+	public Instant getUpdateAt() {
+		return updateAt;
+	}
+
+	@PreUpdate
+	public void setUpdateAt() {
+		this.updateAt = Instant.now();
+	}
+
 
 }

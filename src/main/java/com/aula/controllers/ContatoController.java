@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aula.entities.Contato;
 import com.aula.repository.ContatoRepository;
 import com.aula.services.ContatoService;
+import com.aula.services.dto.ContatoDTO;
 
 @RestController
 @RequestMapping
@@ -33,20 +34,20 @@ public class ContatoController {
 	}
 	
 	@GetMapping("/contatos")
-	public ResponseEntity<List<Contato>> getContatos() {
-		List<Contato> contatos = service.consultarContatos();
+	public ResponseEntity<List<ContatoDTO>> getContatos() {
+		List<ContatoDTO> contatos = service.consultarContatos();
 		return ResponseEntity.status(HttpStatus.OK).body(contatos);
 	}
 	
 	@GetMapping("/contatos/{idcontato}")
-	public ResponseEntity<Contato> getContatosById(@PathVariable("idcontato") Long idContato) {
-		Contato ct = service.consultarUmContato(idContato);
+	public ResponseEntity<ContatoDTO> getContatosById(@PathVariable("idcontato") Long idContato) {
+		ContatoDTO ct = service.consultarUmContato(idContato);
 		return ResponseEntity.ok(ct);
 	}
 	
 	@PostMapping("/contatos")
-	public ResponseEntity<Contato> SaveContato(@RequestBody Contato contato) {
-		Contato ct = service.salvar(contato);
+	public ResponseEntity<ContatoDTO> SaveContato(@RequestBody Contato contato) {
+		ContatoDTO ct = service.salvar(contato);
 		return ResponseEntity.status(HttpStatus.CREATED).body(ct);
 	}
 	
@@ -57,7 +58,7 @@ public class ContatoController {
 	}
 	
 	@PutMapping("/contatos/{idcontato}")
-	public ResponseEntity<Contato> alterarContato(@PathVariable("idcontato") Long idContato, @RequestBody Contato contato) {
+	public ResponseEntity<ContatoDTO> alterarContato(@PathVariable("idcontato") Long idContato, @RequestBody Contato contato) {
 		return ResponseEntity.ok(service.alterar(idContato, contato));
 	}
 }
