@@ -1,5 +1,8 @@
 package com.aula.services.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.aula.entities.Contato;
 
 public class ContatoDTO {
@@ -22,6 +25,14 @@ public class ContatoDTO {
 		this.nome = contato.getNome();
 		this.email = contato.getEmail();
 		this.fone = contato.getFone();
+	}
+	
+	public static List<ContatoDTO> converteParaDTO(List<Contato> contatos){
+		List<ContatoDTO> contatosDTO = new ArrayList<>();
+		for(Contato ct: contatos) {
+			contatosDTO.add(new ContatoDTO(ct));
+		}
+		return contatosDTO;
 	}
 	
 	public Long getId() {

@@ -1,25 +1,40 @@
 package com.aula.entities;
 
 import java.time.Instant;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Contato {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@OneToMany(mappedBy = "contato", cascade = CascadeType.REMOVE)
+	private List<Compromisso> compromissis;
+	
+	@NotBlank(message = "Nome é obrigatório")
 	@Column(length = 50, nullable = false)
 	private String nome;
+	
+	@NotBlank(message = "Email é obrigatório")
+	@Email(message = "email é inválido")
 	@Column(length = 50, nullable = false)
 	private String email;
-	@Column(length = 14)
+	
+	@Size(max=14, min=14, message = "o telefone deve ter 14 caracteres")
 	private String fone;
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant createdAt;

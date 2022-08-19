@@ -8,11 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.aula.services.exception.ValidacaoException;
 import com.aula.services.exception.MinhaExcecao;
+import com.aula.services.exception.ValidacaoException;
 
 @ControllerAdvice
 public class ManipuladorErros {
@@ -60,5 +61,18 @@ public class ManipuladorErros {
 		erro.setPath(req.getRequestURI());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
 	}
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ErroPadrao> argException(MethodArgumentNotValidException e, HttpServletRequest req){
+		ErroPadrao erro = new ErroPadrao();
+		erro.setTimestamp(Instant.now());
+		erro.setStatus(HttpStatus.BAD_REQUEST.value());
+		erro.setError("Esse dado é inválido");
+		erro.setMessage(e.getLocalizedMessage());
+		erro.setPath(req.getRequestURI());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+	}
+	
+	
 
 }

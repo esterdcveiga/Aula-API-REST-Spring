@@ -22,13 +22,13 @@ public class ContatoService {
 	ContatoRepository repo;
 	
 	public ContatoDTO salvar(Contato contato) {
-		if(contato.getFone().length() != 14) {
-			throw new ValidacaoException("telefone inválido");
-		}
-		String email = contato.getEmail();
-		if(!email.contains("@")) {
-			throw new ValidacaoException("email inválido");
-		}
+//		if(contato.getFone().length() != 14) {
+//			throw new ValidacaoException("telefone inválido");
+//		}
+//		String email = contato.getEmail();
+//		if(!email.contains("@")) {
+//			throw new ValidacaoException("email inválido");
+//		}
 		Contato ct = repo.save(contato);
 		ContatoDTO ctDto = new ContatoDTO(ct);
 		return ctDto;
@@ -68,6 +68,10 @@ public class ContatoService {
 		ct.setFone(contato.getFone());
 		ContatoDTO ctDto = new ContatoDTO(repo.save(ct));
 		return ctDto;
+	}
+	
+	public List<ContatoDTO> consultaPorEmail(String email){
+		return ContatoDTO.converteParaDTO(repo.findByEmail(email));
 	}
 
 }

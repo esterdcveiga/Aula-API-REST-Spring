@@ -2,6 +2,8 @@ package com.aula.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,12 @@ public class ContatoController {
 		return "index de contato";
 	}
 	
+	@GetMapping("/contatos/email/{email}")
+	public ResponseEntity<List<ContatoDTO>> getContatosEmail(@PathVariable("email") String email){
+		
+		return ResponseEntity.ok(service.consultaPorEmail(email));
+	}
+	
 	@GetMapping("/contatos")
 	public ResponseEntity<List<ContatoDTO>> getContatos() {
 		List<ContatoDTO> contatos = service.consultarContatos();
@@ -46,7 +54,7 @@ public class ContatoController {
 	}
 	
 	@PostMapping("/contatos")
-	public ResponseEntity<ContatoDTO> SaveContato(@RequestBody Contato contato) {
+	public ResponseEntity<ContatoDTO> SaveContato(@Valid @RequestBody Contato contato) {
 		ContatoDTO ct = service.salvar(contato);
 		return ResponseEntity.status(HttpStatus.CREATED).body(ct);
 	}
