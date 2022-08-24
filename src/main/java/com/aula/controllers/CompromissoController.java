@@ -13,25 +13,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aula.entities.Compromisso;
 import com.aula.repository.CompromissoRepository;
+import com.aula.services.CompromissoService;
 
 @RestController
 @RequestMapping("/")
 public class CompromissoController {
 	@Autowired
-	CompromissoRepository repo;
+	CompromissoService service;
 	
 	@GetMapping("/compromissos")
 	public ResponseEntity<List<Compromisso>> consultaCompromissos() {
-		return ResponseEntity.ok(repo.findAll());
+		return ResponseEntity.ok(service.consultar());
 	}
 	
 	@GetMapping("/compromissos/contato/{nome}")
 	public ResponseEntity<List<Compromisso>> consultaCompromissosNomeContato(@PathVariable("nome") String nome){
-		return ResponseEntity.ok(repo.consultaPorNomeContato(nome));
+		return ResponseEntity.ok(service.consultarUmNome(nome));
 	}
 	
 	@PostMapping("/compromissos")
 	public ResponseEntity<Compromisso> salvarCompromisso(@RequestBody Compromisso compromisso){
-		return ResponseEntity.ok(repo.save(compromisso));
+		return ResponseEntity.ok(service.salvar(compromisso));
 	}
 }
