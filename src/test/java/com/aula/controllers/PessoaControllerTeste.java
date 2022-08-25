@@ -64,40 +64,40 @@ public class PessoaControllerTeste {
 	}
 	
 	@Test
-	public void retornaPessoaAoConsultarIdExistente() throws Exception {
+	void retornaPessoaAoConsultarIdExistente() throws Exception {
 		ResultActions result = nockMvc.perform(get("/pessoa/{idpessoa}", idExistente).accept(MediaType.APPLICATION_JSON));
 		result.andExpect(status().isOk());
 	}
 	
 	@Test
-	public void deveRetornar404() throws Exception {
+	void deveRetornar404() throws Exception {
 		ResultActions result = nockMvc.perform(get("/pessoa/{idpessoa}", idNaoExistente).accept(MediaType.APPLICATION_JSON));
 		result.andExpect(status().isNotFound());
 	}
 	
 	@Test
-	public void retornar204SalvoConsucesso() throws Exception {
+	void retornar204SalvoConsucesso() throws Exception {
 		String jsonBody = objMapper.writeValueAsString(pNova);
 		ResultActions result = nockMvc.perform(post("/pessoa").content(jsonBody).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON) );
 		result.andExpect(status().isCreated());
 	}
 	
 	@Test
-	public void retornaOkQuandoAltera() throws Exception {
+	void retornaOkQuandoAltera() throws Exception {
 		String jsonBody = objMapper.writeValueAsString(pExistente);
 		ResultActions result = nockMvc.perform(put("/pessoa/{idpessoa}", idExistente).content(jsonBody).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
 		result.andExpect(status().isOk());
 	}
 	
 	@Test
-	public void retorna404QuandoAlteraInexistente() throws Exception {
+	void retorna404QuandoAlteraInexistente() throws Exception {
 		String jsonBody = objMapper.writeValueAsString(pNova);
 		ResultActions result = nockMvc.perform(put("/pessoa/{idpessoa}", idNaoExistente).content(jsonBody).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
 		result.andExpect(status().isNotFound());
 	}
 	
 	@Test
-	public void retornaListaConsultaTodos() throws Exception {
+	void retornaListaConsultaTodos() throws Exception {
 		ResultActions result = nockMvc.perform(get("/pessoa"));
 		result.andExpect(status().isOk());
 		Mockito.when(service.consultarTodos()).thenReturn(new ArrayList<>());

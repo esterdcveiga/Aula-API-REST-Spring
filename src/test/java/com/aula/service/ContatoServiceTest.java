@@ -73,15 +73,15 @@ public class ContatoServiceTest {
 		Mockito.verify(repository, Mockito.times(1)).deleteById(idInexistente);
 	}
 
-//	@Test
-	public void testConsultarUmContatoHappyPath() {
+	@Test
+	void testConsultarUmContatoHappyPath() {
 		ContatoDTO ct = service.consultarUmContato(idExistente);
 		Assertions.assertNotNull(ct);
 		Mockito.verify(repository).findById(idExistente);
 	}
 
-	//@Test
-	public void testConsultarUmContatoBadPath() {
+	@Test
+	void testConsultarUmContatoBadPath() {
 
 		Assertions.assertThrows(EntityNotFoundException.class, () -> {
 			service.consultarUmContato(idInexistente);
@@ -89,25 +89,19 @@ public class ContatoServiceTest {
 		Mockito.verify(repository, Mockito.times(1)).findById(idInexistente);
 	}
 	
-//	@Test
-	public void retornaContatoDTOQuandoSalvarConSucesso() {
+	@Test
+	void retornaContatoDTOQuandoSalvarConSucesso() {
 		ContatoDTO ct = service.salvar(contatoValido);
 		Assertions.assertNotNull(ct);
 		Mockito.verify(repository).save(contatoValido);
 	}
 	
-//	@Test
-	public void testSalvarContatoBadPath() {
+	@Test
+	void testSalvarContatoBadPath() {
 		
 		Assertions.assertThrows(IllegalArgumentException.class, ()-> {
 			service.salvar(contatoInvalido);
 		});
 		Mockito.verify(repository, Mockito.times(1)).save(contatoInvalido);
-	}
-	
-	//@Test
-	public void retornaContatoDTOQuandoAlterarComSucesso() {
-		ContatoDTO ct = service.alterar(idExistente, contatoValido);
-		
 	}
 }

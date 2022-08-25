@@ -58,35 +58,35 @@ public class CompromissoServiceTest {
 		Mockito.when(repo.consultaPorNomeContato(nomeInvalido)).thenReturn(null);
 	}
 	
-	//@Test
-	public void testSalvarCompromissoComSuccesso() {
+	@Test
+	void testSalvarCompromissoComSuccesso() {
 		Compromisso cp = service.salvar(compromissoValido);
 		Assertions.assertNotNull(cp);
 		Mockito.verify(repo).save(compromissoValido);
 	}
 	
-	//@Test
-	public void testSalvarCompromissoSemSucesso() {
+	@Test
+	void testSalvarCompromissoSemSucesso() {
 		Compromisso cp = service.salvar(compromissoInvalido);
 		Assertions.assertNull(cp);
 		Mockito.verify(repo).save(compromissoInvalido);
 	}
 	
 	@Test
-	public void testConsultarTodosComSucesso() {
+	void testConsultarTodosComSucesso() {
 		compromissos = service.consultar();
 		Assertions.assertNotNull(compromissos);
 		Mockito.verify(repo).findAll();
 	}
 	
-//	@Test
+	@Test
 	public void testConsultarPorNomeComSucesso() {
 		compromissos = service.consultarUmNome(nomeValido);
 		Assertions.assertNotNull(compromissos);
 		Mockito.verify(repo).consultaPorNomeContato(nomeValido);
 	}
 	
-//	@Test
+	@Test
 	public void testConsultarPorNomeSemSucesso() {
 		compromissos = service.consultarUmNome(nomeInvalido);
 		Assertions.assertNull(compromissos);
