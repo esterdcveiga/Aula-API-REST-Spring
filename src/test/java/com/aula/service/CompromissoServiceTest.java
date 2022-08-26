@@ -20,7 +20,7 @@ import com.aula.repository.CompromissoRepository;
 import com.aula.services.CompromissoService;
 
 @ExtendWith(SpringExtension.class)
-public class CompromissoServiceTest {
+class CompromissoServiceTest {
 	
 	Compromisso compromissoValido;
 	Compromisso compromissoInvalido;
@@ -80,14 +80,14 @@ public class CompromissoServiceTest {
 	}
 	
 	@Test
-	public void testConsultarPorNomeComSucesso() {
+	void testConsultarPorNomeComSucesso() {
 		compromissos = service.consultarUmNome(nomeValido);
 		Assertions.assertNotNull(compromissos);
 		Mockito.verify(repo).consultaPorNomeContato(nomeValido);
 	}
 	
 	@Test
-	public void testConsultarPorNomeSemSucesso() {
+	void testConsultarPorNomeSemSucesso() {
 		compromissos = service.consultarUmNome(nomeInvalido);
 		Assertions.assertNull(compromissos);
 		Mockito.verify(repo).consultaPorNomeContato(nomeInvalido);

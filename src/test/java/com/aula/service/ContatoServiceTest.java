@@ -20,7 +20,7 @@ import com.aula.services.ContatoService;
 import com.aula.services.dto.ContatoDTO;
 
 @ExtendWith(SpringExtension.class)
-public class ContatoServiceTest {
+class ContatoServiceTest {
 
 	private Long idExistente;
 	private Long idInexistente;

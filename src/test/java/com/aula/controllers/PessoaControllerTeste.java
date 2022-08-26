@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PessoaControllerTeste {
+class PessoaControllerTeste {
 	
 	private Long idExistente;
 	private Long idNaoExistente;
