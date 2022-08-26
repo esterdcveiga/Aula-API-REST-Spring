@@ -76,7 +76,7 @@ public class PessoaControllerTeste {
 	}
 	
 	@Test
-	void retornar204SalvoConsucesso() throws Exception {
+	void retornar201SalvoConsucesso() throws Exception {
 		String jsonBody = objMapper.writeValueAsString(pNova);
 		ResultActions result = nockMvc.perform(post("/pessoa").content(jsonBody).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON) );
 		result.andExpect(status().isCreated());
